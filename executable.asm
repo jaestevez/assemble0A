@@ -16,6 +16,5 @@ LAZO:
 loop LAZO 
 dec CX 
 MOV VAR1,CX
-.exit
-    
-    END  
+.exit    
+END
