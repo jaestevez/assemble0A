@@ -6,15 +6,16 @@
 .code
 .start
     MOV AX,0h
-    MOV BX,0h
+    MOV BX,0h  
+    MOV CX,0FFFFh
 
-LAZO:
-    ADD AX,1h
-    JNZ LAZO
-    ADD DX,1
-    JNZ LAZO
-    MOV VAR1,AX
-    MOV VAR2,DX
-    .exit
+LAZO:       
+    MOV DX,CX
+    MOV CX,0FFFFh
+    LAZ: 
+    loop LAZ
+    MOV CX,DX
+loop LAZO
+.exit
     
-    END
+    END  
