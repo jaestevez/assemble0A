@@ -1,21 +1,21 @@
 .model small
 .stack 64
 .data
-    VAR1 DW 00A2h
-    VAR2 DW ?
+    VAR1 DW ?
 .code
 .start
-    MOV AX,0h
-    MOV BX,0h  
-    MOV CX,0FFFFh
+    MOV AX,0FFh 
+    MOV CX,AX
 
 LAZO:       
     MOV DX,CX
-    MOV CX,0FFFFh
+    MOV CX,AX
     LAZ: 
     loop LAZ
     MOV CX,DX
-loop LAZO
+loop LAZO 
+dec CX 
+MOV VAR1,CX
 .exit
     
     END  
