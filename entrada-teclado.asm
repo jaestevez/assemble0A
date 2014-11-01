@@ -4,9 +4,9 @@
     VAR1 DW ?
 .code
 .start
-    MOV AX,0h 
-
-
+    MOV AH,1h 
+    int 21h
+    ;el caracter queda guardado en AL
 .exit
     
 END
