@@ -1,21 +1,21 @@
 .model tiny
 .data
-    FirstS     db  13,10,'digite una cadena: $'
-    SecndS     db  13,10,'       la cadena ingresada es: $'
-    OurBuff    db  00h,00h 
-    db  00h 
+    mensaje1     db  13,10,'digite una cadena: $'
+    mensaje2     db  13,10,'la cadena ingresada es: $'
+    cadenaBuffer    db  00h,00h 
+    db  00h dup 0h
 .code
 
 ; impresion en pantalla
 
 
-           mov  dx,offset FirstS
+           mov  dx,offset mensaje1
            mov  ah,09h
            int  21h
 
 ;asignando buffer
 
-           mov  bx,offset OurBuff
+           mov  bx,offset cadenaBuffer
 
            mov  dx,bx
 
@@ -30,19 +30,19 @@
 
 ;imprimir mensaje
 
-           mov  dx,offset SecndS
+           mov  dx,offset mensaje2
            mov  ah,09h
            int  21h
 
 ;se asigna a un registro la cadena en el buffer
 
-           mov  bx,offset OurBuff
+           mov  bx,offset cadenaBuffer
 
 ; devuelve la longitud real de la cadena en la posicion 
 
            mov  al,[bx+1]
 
-; agregamos dos a la longitud de la cadena
+; agregamos dos a la longitud a la cadena 
 
            add  al,02
 
@@ -57,7 +57,7 @@
 
 ;se escribe la cadena antes ingresada
 
-           mov  dx,offset OurBuff
+           mov  dx,offset cadenaBuffer
            add  dx,02
            mov  ah,09h
            int  21h
