@@ -1,42 +1,42 @@
 .model tiny
 .data
-    mensaje1     db  13,10,'digite una cadena: $'
+    mensaje1     db  'digite una cadena: $'
     mensaje2     db  13,10,'la cadena ingresada es: $'
-    cadenaBuffer    db  00h,00h 
-    db  00h dup 0h
+    cadenaBuffer    db ''
+    
 .code
 
-; impresion en pantalla
+; impresion en pantalla mensaje1
 
 
-           mov  dx,offset mensaje1
+           lea dx,mensaje1
            mov  ah,09h
            int  21h
 
 ;asignando buffer
 
-           mov  bx,offset cadenaBuffer
+           lea bx,cadenaBuffer
 
-           mov  dx,bx
+           mov  dx,bx  ;direccion del area de almacenamiento
 
 ;le decimos cuantos caracteres maximo mas el caracter de terminacion
 
-           mov  byte [bx],33
+           mov  byte [bx],21h
 
 ;llamamos la subrutina
 
            mov  ah,0Ah
            int  21h
 
-;imprimir mensaje
+; impresion en pantalla mensaje2
 
-           mov  dx,offset mensaje2
+           lea dx,mensaje2
            mov  ah,09h
            int  21h
 
 ;se asigna a un registro la cadena en el buffer
 
-           mov  bx,offset cadenaBuffer
+           lea bx,cadenaBuffer
 
 ; devuelve la longitud real de la cadena en la posicion 
 
@@ -48,8 +48,8 @@
 
 ;
 
-           xor  ah,ah
-           mov  si,ax
+           MOV AH,0h
+           mov  si,ax  ; size string ->source index
 
 ;se agrega caracter final
 
@@ -57,12 +57,11 @@
 
 ;se escribe la cadena antes ingresada
 
-           mov  dx,offset cadenaBuffer
+           lea dx,cadenaBuffer
            add  dx,02
            mov  ah,09h
-           int  21h
-
-;regreso del control al SO
+           int  21h  
+;regreso del control al S.O.
            mov  ah,4Ch
            int  21h
 .exit
